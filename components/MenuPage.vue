@@ -6,8 +6,10 @@
         <li><router-link to="/">index</router-link></li>
         <li><router-link to="/main">main</router-link></li>
         <li><router-link to="/boardList">게시판</router-link></li>
-        <li class="lir"><router-link to="/join">join</router-link></li>
-        <li class="lir"><router-link to="/login">login</router-link></li>
+        <li class="lir" v-if="this.$store.getters.getUserId == null"><router-link to="/join">join</router-link></li>
+        <li class="lir" v-if="this.$store.getters.getUserId == null"><router-link to="/login">login</router-link></li>
+        <li @click="logout" class="lir" v-if="this.$store.getters.getUserId != null">logout</li>
+        <li class="lir" v-if="this.$store.getters.getUserId != null"><router-link to="/myInfo">myInfo</router-link></li>
       </ul>
     </nav>
   </header>
@@ -15,6 +17,14 @@
    <script>
 export default {
   name: "MenuPage",
+  methods:{
+    logout(){
+      if(confirm('로그아웃 하시겠습니까?')){
+        this.$store.commit("logout");//로그아웃 작업
+        this.$router.push("/login");//페이지 이동
+      }
+    }
+  }
 };
 </script>
 <style>
