@@ -4,7 +4,7 @@
     href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css"
   />
   <div>
-    <h1>board</h1>
+    <h1>board : {{this.userInfo.m_name}} </h1>
     <table>
       <thead>
         <tr>
@@ -68,7 +68,7 @@
         <i class="xi-fast-forward"></i>
       </button>
     </div>
-    <button @click="write">글쓰기</button>
+    <button v-if="this.userInfo.m_name != null" @click="write">글쓰기</button>
   </div>
 </template>
 
@@ -87,6 +87,10 @@ export default {
       startPage: null,
       endPage: null,
       pageList: [],
+      userInfo: {
+        m_name: this.$store.getters.getUserName,
+        m_id: this.$store.getters.getUserId,
+      }
     };
   },
   mounted() {
